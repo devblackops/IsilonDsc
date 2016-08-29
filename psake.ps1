@@ -25,7 +25,8 @@ task Init {
 task Test -Depends Init, Analyze, Pester
 
 task Analyze -Depends Init {
-    $saResults = Invoke-ScriptAnalyzer -Path $sut -Severity Error -Recurse -Verbose:$false | ? {$_.Severity -eq 'Error' -or $_.Severity -eq 'Warning'}
+    $saResults = Invoke-ScriptAnalyzer -Path $sut -Severity Error -Recurse -Verbose:$false | 
+        Where-Object {$_.Severity -eq 'Error' -or $_.Severity -eq 'Warning'}
     if ($saResults) {
         $saResults | Format-Table
         Write-Error -Message 'One or more Script Analyzer errors/warnings where found. Build cannot continue!'
