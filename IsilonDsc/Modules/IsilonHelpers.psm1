@@ -1,13 +1,15 @@
 #requires -modules SSLValidation
 
-function Login{
+function Login {
+    [outputtype([bool])]
     [cmdletbinding()]
     param(
         [parameter(Mandatory)]
         [string]$Cluster,
 
         [parameter(Mandatory)]
-        [pscredential]$Credential
+        [pscredential]
+        [System.Management.Automation.Credential()]$Credential
     )
 
     try {
